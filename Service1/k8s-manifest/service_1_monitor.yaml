@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: servicemonitor-service-1
+  labels:
+    release: prometheus
+    app: prometheus
+spec:
+  jobLabel: job
+  selector:
+    matchLabels:
+      job: node-service-1
+      app: service-service-1
+  endpoints:
+  - port: web
+    path: /metrics
+    interval: 30s
+    scrapeTimeout: 30s
+    tlsConfig:
+      insecureSkipVerify: true
