@@ -1,9 +1,0 @@
-* Changed 3 services(service-warehouseapi,prometheus-kube-prometheus-prometheus,prometheus-grafana ) to Node port 
-
-* Now these services can be accessed on 
-
-minikube-ip:30001
-minikube-ip:30002
-minikube-ip:30003 
-
-respectively

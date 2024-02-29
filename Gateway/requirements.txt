@@ -1,0 +1,5 @@
+fastapi
+aiohttp
+uvicorn
+requests_futures
+requests

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: deploy-service-3
+  name: deploy-service-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deploy-service-3
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: deploy-service-3
+    spec:
+      containers:
+      - image: miketzan/service3:latest
+        name: service-3
+        imagePullPolicy: Always
+        resources: {}
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-service-3
+  labels:
+    job: node-service-3
+    app: service-service-3
+spec:
+  type: NodePort
+  selector:
+    app: deploy-service-3
+  ports:
+    - name: web3
+      protocol: TCP
+      port: 6689
+      targetPort: 6689
+      nodePort: 30005

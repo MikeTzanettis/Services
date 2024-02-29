@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: servicemonitor-warehouseapi
+  name: servicemonitor-metrics-exporter
   labels:
     release: prometheus
     app: prometheus
@@ -9,9 +9,12 @@ spec:
   jobLabel: job
   selector:
     matchLabels:
-      job: node-warehouseapi
-      app: service-warehouseapi
+      job: node-metrics-exporter
+      app: service-metrics-exporter
   endpoints:
   - port: web
     path: /metrics
-    interval: 30s
+    interval: 1s
+    scrapeTimeout: 1s
+    tlsConfig:
+      insecureSkipVerify: true

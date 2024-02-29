@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: deploy-metrics-exporter
+  name: deploy-metrics-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deploy-metrics-exporter
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: deploy-metrics-exporter
+    spec:
+      containers:
+      - image: miketzan/metrics-exporter:latest
+        name: metrics-exporter
+        imagePullPolicy: Always
+        resources: {}
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-metrics-exporter
+  labels:
+    job: node-metrics-exporter
+    app: service-metrics-exporter
+spec:
+  type: NodePort
+  selector:
+    app: deploy-metrics-exporter
+  ports:
+    - name: web
+      protocol: TCP
+      port: 7001
+      targetPort: 7001
+      nodePort: 30007
+

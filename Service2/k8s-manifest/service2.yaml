@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: deploy-service-2
+  name: deploy-service-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deploy-service-2
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: deploy-service-2
+    spec:
+      containers:
+      - image: miketzan/service2:latest
+        name: service-2
+        imagePullPolicy: Always
+        resources: {}
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-service-2
+  labels:
+    job: node-service-2
+    app: service-service-2
+spec:
+  type: NodePort
+  selector:
+    app: deploy-service-2
+  ports:
+    - name: web2
+      protocol: TCP
+      port: 6779
+      targetPort: 6779
+      nodePort: 30004

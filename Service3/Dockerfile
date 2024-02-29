@@ -14,7 +14,7 @@ RUN pip3 install --no-cache-dir --upgrade -r requirements.txt
 COPY . .
 
 # Make port 6789 available to the world outside this container
-EXPOSE 6789
+EXPOSE 6689
 
 # Run app.py when the container launches 
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "6789"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "6689","--timeout-keep-alive", "60"]
