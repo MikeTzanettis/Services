@@ -1,7 +1,7 @@
 from fastapi import FastAPI,Request
 import time
 import requests
-
+import aiohttp
 app = FastAPI()
 
 metrics_exporter_url = "http://192.168.49.2:30007/monitor-metrics"
@@ -16,15 +16,17 @@ async def get_fibonacci(request: Request):
     fib_sequence = [0, 1]
     for _ in range(2, number):
         fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
-    sum_fib = sum(fib_sequence)
-    json_data["sum_fib"] = sum_fib
-
+        
+    async with aiohttp.ClientSession() as session:
+        async with session.post(f'http://192.168.49.2:30004/calculate-distance',json=json_data) as response:
+            data = await response.json()
+            
     #_ = requests.post(f"http://192.168.49.2:30004/calculate-distance",json=json_data)
 
-    end = time.time()
-    latency = end - start_time
-    json_data["latency"] = latency
-    _ = requests.post(metrics_exporter_url,json = json_data)
+    # end = time.time()
+    # latency = end - start_time
+    # json_data["latency"] = latency
+    # _ = requests.post(metrics_exporter_url,json = json_data)
 
     return "Request Received",202
 
