@@ -3,7 +3,7 @@ import requests
 import time
 
 app = FastAPI(timeout = 60)
-metrics_exporter_url = "http://192.168.49.2:30007/monitor-metrics"
+metrics_exporter_url = "http://service-metrics-exporter:7001/monitor-metrics"
 @app.post("/find_divisible_by_7")
 async def find_numbers_divisible_by_7(request: Request):
     divisible_by_7 = []

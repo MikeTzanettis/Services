@@ -21,7 +21,10 @@ spec:
       - image: miketzan/service1:latest
         name: service-1
         imagePullPolicy: Always
-        resources: {}
+        resources:
+          limits:
+            cpu: 250m
+
 status: {}
 
 ---
@@ -34,7 +37,7 @@ metadata:
     job: node-service-1
     app: service-service-1
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: deploy-service-1
   ports:
@@ -42,5 +45,4 @@ spec:
       protocol: TCP
       port: 6789
       targetPort: 6789
-      nodePort: 30001
 

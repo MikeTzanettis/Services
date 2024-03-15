@@ -21,7 +21,9 @@ spec:
       - image: miketzan/metrics-exporter:latest
         name: metrics-exporter
         imagePullPolicy: Always
-        resources: {}
+        resources:
+          limits:
+            cpu: 250m
 status: {}
 
 ---
@@ -34,7 +36,7 @@ metadata:
     job: node-metrics-exporter
     app: service-metrics-exporter
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: deploy-metrics-exporter
   ports:
@@ -42,5 +44,4 @@ spec:
       protocol: TCP
       port: 7001
       targetPort: 7001
-      nodePort: 30007
 
